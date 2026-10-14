@@ -13,7 +13,12 @@ export const COUNTRY_CENTER = [23.685, 90.3563];
 // Shorten a Nominatim display name to its first three parts for dropdown rows.
 export function formatPlaceLabel(displayName, fallback = "") {
   if (!displayName) return fallback;
-  return displayName.split(",").slice(0, 3).join(", ");
+  return displayName
+    .split(",")
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .slice(0, 3)
+    .join(", ");
 }
 
 // Message for a point the user left empty. Kept here so the wording is
