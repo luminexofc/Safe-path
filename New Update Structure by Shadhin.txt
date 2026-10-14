@@ -1,4 +1,4 @@
-safe-path-monorepo/
+safeway-monorepo/
 │
 ├── client/                             # Frontend (React.js / Next.js)
 │   ├── public/
