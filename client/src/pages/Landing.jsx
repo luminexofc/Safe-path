@@ -27,7 +27,7 @@ export default function Landing() {
     <div className="min-h-screen bg-slate-950 text-white">
       <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950">
         <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6">
-          <Link to="/" className="text-[18px] font-bold tracking-tight" aria-label="SafePath home">SafePath</Link>
+          <Link to="/" className="text-[18px] font-bold tracking-tight" aria-label="Safeway home">Safeway</Link>
           <nav className="flex items-center gap-2" aria-label="Primary">
             <Link to="/dashboard" className="hidden min-h-[44px] items-center rounded-xl px-4 text-[14px] font-semibold text-slate-300 hover:bg-white/10 hover:text-white sm:inline-flex">Safety map</Link>
             <Link to="/login" className="inline-flex min-h-[44px] items-center rounded-xl border border-white/15 px-4 text-[14px] font-semibold hover:bg-white/10">Log in</Link>
@@ -45,7 +45,7 @@ export default function Landing() {
             </h1>
             <SafetyRule className="mt-5" />
             <p className="mt-4 max-w-[56ch] text-[16px] leading-relaxed text-slate-300">
-              SafePath scores every road segment (clear, unverified, reported, waterlogged)
+              Safeway scores every road segment (clear, unverified, reported, waterlogged)
               and reroutes you around flooded streets on a color-coded map.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
@@ -162,7 +162,7 @@ export default function Landing() {
           </div>
 
           <footer className="flex flex-col gap-2 pb-4 pt-10 text-[13px] text-slate-500 sm:flex-row sm:justify-between dark:text-slate-400">
-            <p className="flex items-center gap-2 text-slate-700 dark:text-slate-200"><MapPin className="h-4 w-4" aria-hidden="true" /> SafePath · Safety routing for Bangladesh</p>
+            <p className="flex items-center gap-2 text-slate-700 dark:text-slate-200"><MapPin className="h-4 w-4" aria-hidden="true" /> Safeway · Safety routing for Bangladesh</p>
             <p className="flex gap-4"><Link className="hover:underline" to="/my-reports">My reports</Link><Link className="hover:underline" to="/settings">Settings</Link></p>
           </footer>
         </div>

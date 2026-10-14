@@ -133,7 +133,7 @@ export function CommandPalette({ open, onClose }) {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             className="w-full max-w-lg overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-pop dark:border-white/10 dark:bg-slate-900"
-            onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Search SafePath">
+            onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Search Safeway">
             <div className="flex items-center gap-2 border-b border-slate-100 px-4 dark:border-white/10">
               <Search className="h-4 w-4 text-slate-500 dark:text-slate-400" />
               <input ref={inputRef} value={q} onChange={(e) => setQ(e.target.value)}

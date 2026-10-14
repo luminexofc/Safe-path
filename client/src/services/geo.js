@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 // - Geocoding: OpenStreetMap Nominatim (biased to Bangladesh)
 // - Routing: OSRM public demo server (driving profile)
 // - Position: browser Geolocation API
-// Waterlogging safety scoring still comes from the SafePath backend
+// Waterlogging safety scoring still comes from the Safeway backend
 // (POST /v1/map/route). See README.
 
 const BD_VIEWBOX = "88.0,20.5,92.7,26.7"; // lng-top, lat-top, lng-bottom, lat-bottom

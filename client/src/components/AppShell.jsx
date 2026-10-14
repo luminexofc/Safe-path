@@ -36,8 +36,8 @@ function LegendBar() {
 
 function Logo() {
   return (
-    <Link to="/dashboard" className="cursor-pointer text-[18px] font-bold tracking-tight text-slate-900 dark:text-white" aria-label="SafePath home">
-      SafePath
+    <Link to="/dashboard" className="cursor-pointer text-[18px] font-bold tracking-tight text-slate-900 dark:text-white" aria-label="Safeway home">
+      Safeway
     </Link>
   );
 }

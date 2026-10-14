@@ -1,4 +1,4 @@
-# SafePath — Bangladesh-wide waterlogging safety
+# Safeway: Bangladesh-wide waterlogging safety
 
 Two websites, one backend API. No demo accounts, no hardcoded personal data.
 
@@ -17,7 +17,7 @@ allow-list, FCM fan-out).
 
 Nationwide across all 8 divisions of Bangladesh (Dhaka, Chattogram, Sylhet,
 Khulna, Rajshahi, Barishal, Rangpur, Mymensingh). The map centers on the
-user's live location with a country fallback — never locked to one neighbourhood.
+user's live location with a country fallback, never locked to one neighbourhood.
 Mock data in `client/src/data/mockData.js` is location-neutral sample geometry
 plus real division names; swap it for API responses without touching components.
 
@@ -28,7 +28,7 @@ report markers render at real division coordinates. Falls back to a
 country-wide Bangladesh view when permission is denied.
 - **Navigate**: addresses are geocoded live (OpenStreetMap Nominatim,
 Bangladesh-biased) with suggestion dropdowns, and road geometry comes from
-the OSRM router — the map moves to whatever address is typed.
+the OSRM router, so the map moves to whatever address is typed.
 - Waterlogging safety colors (Green ×1 / Yellow ×1.5–×5 / Red ×∞) light up
 once `POST /v1/map/route` is connected; until then the UI labels the live
 route honestly instead of painting sample colors on it.

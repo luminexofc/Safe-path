@@ -1,4 +1,4 @@
-# SafePath DESIGN.md — locked direction for client + admin console
+# Safeway DESIGN.md: locked direction for client + admin console
 
 Civic flood-safety tool for Bangladesh. Calm, dense, trustworthy. Light app surfaces;
 dark is reserved for night-travel map context and alert contrast (R-21 reason).

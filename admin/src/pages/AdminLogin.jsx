@@ -32,7 +32,7 @@ export default function AdminLogin() {
           <p className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-teal-300">
             <ShieldCheck className="h-4 w-4" aria-hidden="true" /> Restricted · Verification console
           </p>
-          <h1 className="mt-1 text-[22px] font-bold tracking-tight">SafePath Console</h1>
+          <h1 className="mt-1 text-[22px] font-bold tracking-tight">Safeway Console</h1>
           <p className="mt-1 text-[13px] text-slate-400">
             Separate operator site for Bangladesh-wide report verification. Connected to the same API as the main app.
           </p>
@@ -58,7 +58,7 @@ export default function AdminLogin() {
             Log in to console
           </button>
           <p className="text-center text-[13px] text-slate-500 dark:text-slate-400">
-            Public user? <a className="font-bold text-teal-800 underline dark:text-teal-300" href={MAIN_SITE}>Open the SafePath app</a>
+            Public user? <a className="font-bold text-teal-800 underline dark:text-teal-300" href={MAIN_SITE}>Open the Safeway app</a>
           </p>
         </form>
       </div>

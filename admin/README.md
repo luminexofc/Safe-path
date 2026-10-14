@@ -1,4 +1,4 @@
-# SafePath Verification Console (separate operator website)
+# Safeway Verification Console (separate operator website)
 
 Restricted admin site for verifying waterlogging reports across **all of Bangladesh**.
 It is a **separate website** from the public app in `../client`, connected through
@@ -31,5 +31,5 @@ npm run dev      # http://localhost:5173
 ## Cross-links
 
 - Console header → “View main app” (`VITE_MAIN_SITE_URL`).
-- Console login → “Open the SafePath app” for the public.
+- Console login → “Open the Safeway app” for the public.
 - The public app contains **zero** admin entry points by design.

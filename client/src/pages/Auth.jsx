@@ -10,7 +10,7 @@ function AuthFrame({ title, sub, children, footer }) {
       <div className="mx-auto grid max-w-4xl gap-5 md:grid-cols-[1fr_1.1fr]">
         <div className="relative hidden flex-col justify-between overflow-hidden rounded-2xl bg-slate-950 p-8 text-white md:flex">
           <div className="relative">
-            <p className="text-[18px] font-bold tracking-tight">SafePath</p>
+            <p className="text-[18px] font-bold tracking-tight">Safeway</p>
             <h2 className="mt-2 text-[28px] font-bold leading-tight tracking-tight">One map. Every safe road. No guesswork.</h2>
             <ul className="mt-4 space-y-2 text-[14px] text-slate-300">
               <li>Roads colored by review status</li>

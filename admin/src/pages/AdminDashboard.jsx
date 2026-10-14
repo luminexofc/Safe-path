@@ -45,7 +45,7 @@ export default function AdminDashboard() {
             <ShieldCheck className="h-5 w-5" aria-hidden="true" />
           </span>
           <div>
-            <p className="text-[16px] font-bold leading-tight">SafePath Console</p>
+            <p className="text-[16px] font-bold leading-tight">Safeway Console</p>
             <p className="text-[12px] text-slate-500 dark:text-slate-400">Verification for Bangladesh</p>
           </div>
           <div className="ml-auto flex items-center gap-2">

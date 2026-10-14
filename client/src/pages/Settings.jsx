@@ -93,7 +93,7 @@ export default function Settings() {
       <BeuiCard className="p-6">
         <h2 className="text-[16px] font-bold">About</h2>
         <p className="mt-1 text-[14px] leading-relaxed text-slate-600 dark:text-slate-400">
-          SafePath prototype for Bangladesh. Report and map rows are sample data
+          Safeway prototype for Bangladesh. Report and map rows are sample data
           until the API connects. Routes use live open map data.
         </p>
       </BeuiCard>
