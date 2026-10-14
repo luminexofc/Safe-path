@@ -64,7 +64,7 @@ export default function Report() {
     <div className="space-y-4">
       <div>
         <h1 className="mt-1 text-[26px] font-bold tracking-tight sm:text-[30px]">Report waterlogging</h1>
-        <p className="mt-1 text-[14px] text-slate-600">Three quick steps. Verified reports update the map; false ones are discarded.</p>
+        <p className="mt-1 text-[14px] text-slate-600 dark:text-slate-400">Three quick steps. Verified reports update the map; false ones are discarded.</p>
       </div>
 
       <ol className="grid grid-cols-3 gap-2" aria-label="Report progress">
@@ -72,7 +72,7 @@ export default function Report() {
           const active = step === s.n, past = step > s.n;
           return (
             <li key={s.n} className={cn("flex items-center justify-center gap-2 rounded-2xl border px-3 py-3 text-[13.5px] font-bold",
-              active ? "border-slate-900 bg-slate-900 text-white" : past ? "border-teal-600/30 bg-teal-50 text-teal-900" : "border-slate-200 bg-white text-slate-500")}>
+              active ? "border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-900" : past ? "border-teal-600/30 bg-teal-50 text-teal-900 dark:border-teal-400/30 dark:bg-white/5 dark:text-teal-300" : "border-slate-200 bg-white text-slate-500 dark:border-white/10 dark:bg-transparent dark:text-slate-400")}>
               {past ? <Check className="h-4 w-4" /> : <s.icon className="h-4 w-4" />}
               {s.n}. {s.t}
             </li>
@@ -97,12 +97,12 @@ export default function Report() {
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <BeuiBadge tone={precise ? "safe" : "caution"}>{pinResolving ? "Resolving…" : pinLabel}</BeuiBadge>
-                <button type="button" onClick={geo.locate} className="inline-flex min-h-[40px] cursor-pointer items-center gap-1.5 rounded-xl px-2 text-[13px] font-bold text-teal-800 hover:bg-teal-50">
+                <button type="button" onClick={geo.locate} className="inline-flex min-h-[40px] cursor-pointer items-center gap-1.5 rounded-xl px-2 text-[13px] font-bold text-teal-800 hover:bg-teal-50 dark:text-teal-300 dark:hover:bg-white/5">
                   <LocateFixed className="h-4 w-4" aria-hidden="true" />
                   {geo.status === "locating" ? "Locating…" : "Re-center on me"}
                 </button>
               </div>
-              {geo.error && !precise && <p className="text-[13px] text-slate-500">{geo.error} Tap the map to place the pin by hand.</p>}
+              {geo.error && !precise && <p className="text-[13px] text-slate-500 dark:text-slate-400">{geo.error} Tap the map to place the pin by hand.</p>}
               <BeuiInput
                 label="Pinned location"
                 hint="Tap the map, drag the pin, or use your GPS. Works anywhere in Bangladesh."
@@ -120,17 +120,17 @@ export default function Report() {
                   {DEPTHS.map((d) => (
                     <motion.button key={d} type="button" onClick={() => setDepth(d)} aria-pressed={depth === d} whileTap={{ scale: 0.96 }}
                       className={cn("min-h-[52px] cursor-pointer rounded-2xl border-2 px-3 text-[13.5px] font-bold transition-colors",
-                        depth === d ? "border-slate-900 bg-slate-900 text-white" : "border-slate-200 bg-white text-slate-600 hover:border-slate-400")}>{d}</motion.button>
+                        depth === d ? "border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-900" : "border-slate-200 bg-white text-slate-600 hover:border-slate-400 dark:border-white/10 dark:bg-transparent dark:text-slate-300 dark:hover:border-white/30")}>{d}</motion.button>
                   ))}
                 </div>
               </div>
               <div>
                 <span className="mb-1.5 block text-[13.5px] font-semibold">Photo evidence</span>
-                <label className="flex min-h-[130px] cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 text-center transition-colors hover:border-teal-600 hover:bg-teal-50/50">
+                <label className="flex min-h-[130px] cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 text-center transition-colors hover:border-teal-600 hover:bg-teal-50/50 dark:border-white/15 dark:bg-white/5 dark:hover:border-teal-400">
                   <input type="file" accept="image/*" className="sr-only" onChange={(e) => setPhoto(e.target.files?.[0]?.name || "photo.jpg")} />
-                  <Camera className="h-8 w-8 text-slate-500" />
-                  <span className="text-[14px] font-semibold text-slate-700">{photo ? `Attached: ${photo}` : "Tap to add photo"}</span>
-                  <span className="text-[12.5px] text-slate-500">JPG or PNG. A photo helps verification.</span>
+                  <Camera className="h-8 w-8 text-slate-500 dark:text-slate-400" />
+                  <span className="text-[14px] font-semibold text-slate-700 dark:text-slate-200">{photo ? `Attached: ${photo}` : "Tap to add photo"}</span>
+                  <span className="text-[12.5px] text-slate-500 dark:text-slate-400">JPG or PNG. A photo helps verification.</span>
                 </label>
               </div>
               <BeuiInput label="Short note" placeholder="e.g. Knee-deep, rickshaws stuck, bikes passable left lane" />
@@ -142,10 +142,10 @@ export default function Report() {
           )}
           {step === 3 && (
             <div className="space-y-4">
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-white/5">
                 <div className="flex items-center justify-between gap-2"><p className="font-bold">{pinLabel || "Pinned location"}</p><BeuiBadge tone="caution">Enters queue</BeuiBadge></div>
-                <p className="mt-1 text-[14px] text-slate-600">Depth: <b>{depth}</b> · Photo: <b>{photo || "attached"}</b> · {pin.lat.toFixed(5)}, {pin.lng.toFixed(5)}</p>
-                <p className="mt-2 text-[12px] text-slate-500">Goes to the verification queue when you submit.</p>
+                <p className="mt-1 text-[14px] text-slate-600 dark:text-slate-400">Depth: <b>{depth}</b> · Photo: <b>{photo || "attached"}</b> · {pin.lat.toFixed(5)}, {pin.lng.toFixed(5)}</p>
+                <p className="mt-2 text-[12px] text-slate-500 dark:text-slate-400">Goes to the verification queue when you submit.</p>
               </div>
               <div className="flex gap-3">
                 <BeuiButton variant="ghost" onClick={() => setStep(2)}>← Edit</BeuiButton>
@@ -160,7 +160,7 @@ export default function Report() {
             <h3 className="text-[15px] font-bold">What happens next?</h3>
             <ol className="mt-3 space-y-3 text-[13.5px]">
               {[["Queue", "Joins verification with GPS plus photo.", "caution"], ["Verification", "The verification team plus nearby confirmations.", "neutral"], ["Verified", "Road turns yellow or red, and reroutes push out.", "safe"], ["False reports", "Fakes are removed and the reporter is warned.", "danger"]].map(([t, d, tone]) => (
-                <li key={t} className="flex gap-2.5"><BeuiBadge tone={tone}>{t.split(" ")[0]}</BeuiBadge><span><b>{t}.</b> <span className="text-slate-600">{d}</span></span></li>
+                <li key={t} className="flex gap-2.5"><BeuiBadge tone={tone}>{t.split(" ")[0]}</BeuiBadge><span><b>{t}.</b> <span className="text-slate-600 dark:text-slate-400">{d}</span></span></li>
               ))}
             </ol>
           </BeuiCard>

@@ -7,12 +7,13 @@ import NavigatePage from "./pages/Navigate";
 import Report from "./pages/Report";
 import MyReports from "./pages/MyReports";
 import Settings from "./pages/Settings";
+import Profile from "./pages/Profile";
 
 function NotFound() {
   return (
     <div className="mx-auto max-w-xl px-4 py-16 text-center">
       <h1 className="text-[32px] font-bold">Page not found</h1>
-      <p className="mt-2 text-slate-600">That road is not on the map. Head back to safety:</p>
+      <p className="mt-2 text-slate-600 dark:text-slate-400">That road is not on the map. Head back to safety:</p>
       <Link to="/dashboard" className="mt-5 inline-flex min-h-[44px] items-center rounded-xl bg-brand-700 px-5 font-bold text-white">Back to dashboard</Link>
     </div>
   );
@@ -32,6 +33,7 @@ export default function App() {
         <Route path="/report" element={<AppShell><Report /></AppShell>} />
         <Route path="/my-reports" element={<AppShell><MyReports /></AppShell>} />
         <Route path="/settings" element={<AppShell><Settings /></AppShell>} />
+        <Route path="/profile" element={<AppShell><Profile /></AppShell>} />
         <Route path="/home" element={<Navigate to="/dashboard" replace />} />
         <Route path="*" element={<AppShell><NotFound /></AppShell>} />
       </Routes>

@@ -54,3 +54,15 @@ Reading: public-service routing for residents in monsoon season, utilitarian voi
 
 - Public app (`client/`) and verification console (`admin/`) share this file.
   Console uses the same tokens in a denser table layout; no separate identity.
+  Both apps ship the Light/Dark/System control with the same behavior.
+
+## Theme (R-21 reason)
+
+- Light is the default. Three modes: Light, Dark, System (follows the device,
+  reacts to OS changes live). Picker in the header dropdown plus a segmented
+  control in Settings; choice persists in `localStorage`, first visit with no
+  saved choice follows the OS, pre-paint script prevents flash.
+- Dark surfaces: page `slate-950`, cards `slate-900`, borders `white/10`,
+  body text `slate-100`, muted `slate-400` (7:1 measured family).
+- The map swaps to CARTO dark tiles in dark mode (same OSM data, attribution kept).
+- Safety hues stay fixed; only their text lightens (emerald/amber/red-300).

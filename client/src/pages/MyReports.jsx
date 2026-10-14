@@ -17,7 +17,7 @@ export default function MyReports() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="mt-1 text-[26px] font-bold tracking-tight sm:text-[30px]">Your reports</h1>
-          <p className="mt-1 text-[14px] text-slate-600">Submit, queue for review, then see the map update. Rows below are sample data until the API connects.</p>
+          <p className="mt-1 text-[14px] text-slate-600 dark:text-slate-400">Submit, queue for review, then see the map update. Rows below are sample data until the API connects.</p>
         </div>
         <BeuiButton to="/report">Report flooding</BeuiButton>
       </div>
@@ -38,16 +38,16 @@ export default function MyReports() {
         </div>
         <div className="mt-3 space-y-2.5">
           {queue.map((q) => (
-            <div key={q.id} className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 p-4">
-              <span className="font-mono text-[13px] text-slate-500">{q.id}</span>
-              <div className="min-w-[180px] flex-1"><p className="text-[14.5px] font-bold">{q.place}</p><p className="text-[13px] text-slate-500">{q.reporter}</p></div>
+            <div key={q.id} className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 p-4 dark:border-white/10">
+              <span className="font-mono text-[13px] text-slate-500 dark:text-slate-400">{q.id}</span>
+              <div className="min-w-[180px] flex-1"><p className="text-[14.5px] font-bold">{q.place}</p><p className="text-[13px] text-slate-500 dark:text-slate-400">{q.reporter}</p></div>
               <BeuiBadge tone={q.tone}>{q.status}</BeuiBadge>
             </div>
           ))}
           {queue.length === 0 && (
-            <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center">
-              <p className="text-[15px] font-bold text-slate-800">No verified reports yet</p>
-              <p className="mx-auto mt-1 max-w-[46ch] text-[14px] text-slate-600">Reports land here once the verification team approves them. File one to start the queue.</p>
+            <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 px-6 py-10 text-center dark:border-white/15 dark:bg-white/5">
+              <p className="text-[15px] font-bold text-slate-800 dark:text-slate-100">No verified reports yet</p>
+              <p className="mx-auto mt-1 max-w-[46ch] text-[14px] text-slate-600 dark:text-slate-400">Reports land here once the verification team approves them. File one to start the queue.</p>
               <div className="mt-4 flex justify-center"><BeuiButton to="/report">Report flooding</BeuiButton></div>
             </div>
           )}
@@ -60,17 +60,17 @@ export default function MyReports() {
             <h2 className="text-[18px] font-bold">Past submissions</h2>
             <BeuiBadge tone="neutral">Sample data</BeuiBadge>
           </span>
-          <Link to="/navigate" className="text-[13.5px] font-bold text-teal-800 hover:underline">Plan a route</Link>
+          <Link to="/navigate" className="text-[13.5px] font-bold text-teal-800 hover:underline dark:text-teal-300">Plan a route</Link>
         </div>
         <div className="overflow-x-auto nice-scroll">
           <table className="w-full min-w-[560px] text-left text-[14px]">
-            <thead><tr className="border-b border-slate-200 text-[12px] uppercase tracking-wider text-slate-500"><th className="py-2 pr-4 font-bold">ID</th><th className="py-2 pr-4 font-bold">Place</th><th className="py-2 pr-4 font-bold">Depth</th><th className="py-2 font-bold">Outcome</th></tr></thead>
+            <thead><tr className="border-b border-slate-200 text-[12px] uppercase tracking-wider text-slate-500 dark:border-white/10 dark:text-slate-400"><th className="py-2 pr-4 font-bold">ID</th><th className="py-2 pr-4 font-bold">Place</th><th className="py-2 pr-4 font-bold">Depth</th><th className="py-2 font-bold">Outcome</th></tr></thead>
             <tbody>
               {REPORTS.map((r) => (
-                <tr key={r.id} className="border-b border-slate-100 last:border-0">
-                  <td className="py-3 pr-4 font-mono text-[13px] text-slate-500">{r.id}</td>
+                <tr key={r.id} className="border-b border-slate-100 last:border-0 dark:border-white/10">
+                  <td className="py-3 pr-4 font-mono text-[13px] text-slate-500 dark:text-slate-400">{r.id}</td>
                   <td className="py-3 pr-4 font-semibold">{r.place}</td>
-                  <td className="py-3 pr-4 text-slate-600">{r.depth}</td>
+                  <td className="py-3 pr-4 text-slate-600 dark:text-slate-400">{r.depth}</td>
                   <td className="py-3"><BeuiBadge tone={r.tone}>{r.status}</BeuiBadge></td>
                 </tr>
               ))}

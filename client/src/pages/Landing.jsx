@@ -66,9 +66,9 @@ export default function Landing() {
             </dl>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-white/15 bg-white">
-            <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3">
-              <span className="text-[13px] font-bold text-slate-700">Safety map preview</span>
+          <div className="overflow-hidden rounded-2xl border border-white/15 bg-white dark:border-white/10 dark:bg-slate-900">
+            <div className="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-white/10">
+              <span className="text-[13px] font-bold text-slate-700 dark:text-slate-200">Safety map preview</span>
               <BeuiBadge tone="neutral">Sample</BeuiBadge>
             </div>
             <div className="h-[380px] sm:h-[440px]">
@@ -82,7 +82,7 @@ export default function Landing() {
                 chip="Sample preview. Your area draws from your location in the app."
               />
             </div>
-            <div className="flex flex-wrap gap-2 border-t border-slate-100 bg-slate-50 px-4 py-3">
+            <div className="flex flex-wrap gap-2 border-t border-slate-100 bg-slate-50 px-4 py-3 dark:border-white/10 dark:bg-white/5">
               <BeuiBadge tone="safe">Green: verified clear</BeuiBadge>
               <BeuiBadge tone="danger">Red: avoid</BeuiBadge>
               <BeuiBadge tone="caution">Yellow: caution</BeuiBadge>
@@ -91,14 +91,14 @@ export default function Landing() {
         </div>
       </section>
 
-      <section className="bg-[#eef2f5] text-slate-900">
+      <section className="bg-[#eef2f5] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
         <div className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6">
           <h2 className="text-[28px] font-bold tracking-tight sm:text-[36px]">Three moves. Nothing hidden.</h2>
-          <p className="mt-1 max-w-[70ch] text-[15px] text-slate-600">Every action lives in the sidebar, the bottom tab bar, and the ⌘K palette. No hunting through menus.</p>
+          <p className="mt-1 max-w-[70ch] text-[15px] text-slate-600 dark:text-slate-400">Every action lives in the sidebar, the bottom tab bar, and the ⌘K palette. No hunting through menus.</p>
           <div className="mt-4 flex flex-wrap items-center gap-2" aria-label="Coverage across Bangladesh">
-            <span className="text-[12.5px] font-bold uppercase tracking-widest text-slate-500">Covering</span>
+            <span className="text-[12.5px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Covering</span>
             {COVERAGE_DIVISIONS.map((d) => (
-              <span key={d} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[13px] font-semibold text-slate-700">{d}</span>
+              <span key={d} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-[13px] font-semibold text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-200">{d}</span>
             ))}
           </div>
 
@@ -106,13 +106,13 @@ export default function Landing() {
             {STEPS.map((s) => (
               <li key={s.n}>
                 <BeuiCard className={s.featured ? "p-6 sm:p-7" : "p-5 sm:px-6"}>
-                  <Link to={s.to} className="flex items-start gap-4">
-                    <span className="text-[28px] font-bold leading-none text-slate-300" aria-hidden="true">{s.n}</span>
+                  <Link to={s.to} className="pressable flex items-start gap-4">
+                    <span className="text-[28px] font-bold leading-none text-slate-300 dark:text-slate-600" aria-hidden="true">{s.n}</span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-center gap-2 text-[18px] font-bold tracking-tight">
-                        <s.icon className="h-5 w-5 text-teal-700" aria-hidden="true" /> {s.t}
+                        <s.icon className="h-5 w-5 text-teal-700 dark:text-teal-300" aria-hidden="true" /> {s.t}
                       </span>
-                      <span className="mt-1 block max-w-[72ch] text-[14px] leading-relaxed text-slate-600">{s.d}</span>
+                      <span className="mt-1 block max-w-[72ch] text-[14px] leading-relaxed text-slate-600 dark:text-slate-400">{s.d}</span>
                       {s.featured && (
                         <span className="mt-3 flex flex-wrap gap-2">
                           <BeuiBadge tone="safe">Green: verified clear</BeuiBadge>
@@ -121,7 +121,7 @@ export default function Landing() {
                         </span>
                       )}
                     </span>
-                    <span className="hidden shrink-0 items-center rounded-xl bg-slate-900 px-4 py-2.5 text-[14px] font-semibold text-white sm:inline-flex">{s.cta}</span>
+                    <span className="hidden shrink-0 items-center rounded-xl bg-slate-900 px-4 py-2.5 text-[14px] font-semibold text-white sm:inline-flex dark:bg-white dark:text-slate-900">{s.cta}</span>
                   </Link>
                 </BeuiCard>
               </li>
@@ -134,7 +134,7 @@ export default function Landing() {
                 <p className="text-[12px] font-bold uppercase tracking-widest text-teal-300">How the colors are decided</p>
                 <p className="mt-1 text-[14px] text-slate-200">Each road segment gets a safety multiplier, then the cheapest safe path wins.</p>
               </div>
-              <ul className="divide-y divide-slate-100">
+              <ul className="divide-y divide-slate-100 dark:divide-white/10">
                 {[
                   ["#15803d", "Green means go", "Verified clear roads, full weight."],
                   ["#ca8a04", "Yellow means slow down", "Unverified or reported stretches cost extra."],
@@ -143,7 +143,7 @@ export default function Landing() {
                   <li key={t} className="flex items-start gap-3 p-5">
                     <span className="mt-1.5 inline-block h-3 w-3 shrink-0 rounded-full" style={{ background: c }} aria-hidden="true" />
                     <span><span className="block text-[15px] font-bold">{t}</span>
-                    <span className="block text-[13.5px] text-slate-600">{d}</span></span>
+                    <span className="block text-[13.5px] text-slate-600 dark:text-slate-400">{d}</span></span>
                   </li>
                 ))}
               </ul>
@@ -161,8 +161,8 @@ export default function Landing() {
             </BeuiCard>
           </div>
 
-          <footer className="flex flex-col gap-2 pb-4 pt-10 text-[13px] text-slate-500 sm:flex-row sm:justify-between">
-            <p className="flex items-center gap-2 text-slate-700"><MapPin className="h-4 w-4" aria-hidden="true" /> SafePath · Safety routing for Bangladesh</p>
+          <footer className="flex flex-col gap-2 pb-4 pt-10 text-[13px] text-slate-500 sm:flex-row sm:justify-between dark:text-slate-400">
+            <p className="flex items-center gap-2 text-slate-700 dark:text-slate-200"><MapPin className="h-4 w-4" aria-hidden="true" /> SafePath · Safety routing for Bangladesh</p>
             <p className="flex gap-4"><Link className="hover:underline" to="/my-reports">My reports</Link><Link className="hover:underline" to="/settings">Settings</Link></p>
           </footer>
         </div>

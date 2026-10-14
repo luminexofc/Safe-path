@@ -8,7 +8,7 @@ import { cn } from "../../lib/cn";
 import { SPRING_PANEL, SPRING_LAYOUT } from "../../lib/ease";
 
 export function BeuiCard({ children, className = "" }) {
-  return <div className={cn("rounded-2xl border border-slate-200/80 bg-white", className)}>{children}</div>;
+  return <div className={cn("rounded-2xl border border-slate-200/80 bg-white dark:border-white/10 dark:bg-slate-900", className)}>{children}</div>;
 }
 
 export function Skeleton({ className = "" }) {
@@ -19,19 +19,19 @@ export function BeuiInput({ label, hint, error, success, ...props }) {
   const reduce = useReducedMotion();
   return (
     <label className="block">
-      {label && <span className="mb-1.5 block text-[13.5px] font-semibold text-slate-800">{label}</span>}
+      {label && <span className="mb-1.5 block text-[13.5px] font-semibold text-slate-800 dark:text-slate-100">{label}</span>}
       <motion.span
         className="block"
         {...(reduce || !error ? {} : { animate: { x: [0, -7, 7, -4, 4, 0] }, transition: { duration: 0.35 } })}
       >
-        <span className={cn("flex min-h-[48px] items-center gap-2 rounded-xl border bg-white px-4 transition-colors",
-          error ? "border-red-400" : success ? "border-emerald-400" : "border-slate-200 focus-within:border-teal-600")}>
-          <input {...props} className="w-full bg-transparent py-3 text-[15px] text-slate-900 outline-none placeholder:text-slate-500" />
-          {success && <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />}
+        <span className={cn("flex min-h-[48px] items-center gap-2 rounded-xl border bg-white px-4 transition-colors dark:bg-slate-950",
+          error ? "border-red-400 dark:border-red-500" : success ? "border-emerald-400 dark:border-emerald-500" : "border-slate-200 focus-within:border-teal-600 dark:border-white/15 dark:focus-within:border-teal-400")}>
+          <input {...props} className="w-full bg-transparent py-3 text-[15px] text-slate-900 outline-none placeholder:text-slate-500 dark:text-slate-100 dark:placeholder:text-slate-400" />
+          {success && <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />}
         </span>
       </motion.span>
-      {hint && !error && <span className="mt-1 block text-[12.5px] text-slate-500">{hint}</span>}
-      {error && <span className="mt-1 block text-[12.5px] font-semibold text-red-600">{error}</span>}
+      {hint && !error && <span className="mt-1 block text-[12.5px] text-slate-500 dark:text-slate-400">{hint}</span>}
+      {error && <span className="mt-1 block text-[12.5px] font-semibold text-red-600 dark:text-red-400">{error}</span>}
     </label>
   );
 }
@@ -100,6 +100,8 @@ const ACTIONS = [
   { id: "sylhet", label: "Route to Sylhet", hint: "Anywhere in Bangladesh", to: "/navigate", icon: Navigation },
   { id: "report", label: "Report waterlogging", hint: "Quick", to: "/report", icon: TriangleAlert },
   { id: "my", label: "Track my reports", hint: "Verification queue", to: "/my-reports", icon: Search },
+  { id: "profile", label: "Open profile", hint: "Identity and account", to: "/profile", icon: Search },
+  { id: "settings", label: "Open settings", hint: "Alerts and location", to: "/settings", icon: Search },
 ];
 
 export function CommandPalette({ open, onClose }) {
@@ -107,7 +109,6 @@ export function CommandPalette({ open, onClose }) {
   const [q, setQ] = useState("");
   const [cursor, setCursor] = useState(0);
   const inputRef = useRef(null);
-  const reduce = useReducedMotion();
 
   const results = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -129,12 +130,12 @@ export function CommandPalette({ open, onClose }) {
         <motion.div className="fixed inset-0 z-[950] flex items-start justify-center bg-slate-950/50 px-4 pt-[12vh] backdrop-blur-sm"
           initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}>
           <motion.div
-            initial={reduce ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={reduce ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.98 }}
-            transition={SPRING_PANEL}
-            className="w-full max-w-lg overflow-hidden rounded-3xl border border-white/10 bg-white/95 shadow-pop backdrop-blur"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className="w-full max-w-lg overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-pop dark:border-white/10 dark:bg-slate-900"
             onClick={(e) => e.stopPropagation()} role="dialog" aria-label="Search SafePath">
-            <div className="flex items-center gap-2 border-b border-slate-100 px-4">
-              <Search className="h-4 w-4 text-slate-500" />
+            <div className="flex items-center gap-2 border-b border-slate-100 px-4 dark:border-white/10">
+              <Search className="h-4 w-4 text-slate-500 dark:text-slate-400" />
               <input ref={inputRef} value={q} onChange={(e) => setQ(e.target.value)}
                 onKeyDown={(e) => {
                   if (e.key === "Escape") onClose();
@@ -143,18 +144,18 @@ export function CommandPalette({ open, onClose }) {
                   if (e.key === "Enter" && results[cursor]) go(results[cursor].to);
                 }}
                 placeholder="Where to? Try a city, road, or Report…"
-                className="h-14 w-full bg-transparent text-[15px] outline-none placeholder:text-slate-500" />
-              <kbd className="hidden items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-[11px] font-bold text-slate-500 sm:inline-flex"><Command className="h-3 w-3" />K</kbd>
+                className="h-14 w-full bg-transparent text-[15px] text-slate-900 outline-none placeholder:text-slate-500 dark:text-slate-100 dark:placeholder:text-slate-400" />
+              <kbd className="hidden items-center gap-1 rounded-lg border border-slate-200 bg-slate-50 px-2 py-1 text-[11px] font-bold text-slate-500 sm:inline-flex dark:border-white/10 dark:bg-white/5 dark:text-slate-400"><Command className="h-3 w-3" />K</kbd>
             </div>
             <div className="max-h-[320px] overflow-y-auto p-2 nice-scroll">
-              {results.length === 0 && <p className="px-3 py-6 text-center text-[14px] text-slate-500">No match. Try a city name or “Report”.</p>}
+              {results.length === 0 && <p className="px-3 py-6 text-center text-[14px] text-slate-500 dark:text-slate-400">No match. Try a city name or “Report”.</p>}
               {results.map((a, i) => (
                 <button key={a.id} onClick={() => go(a.to)} onMouseEnter={() => setCursor(i)}
-                  className={cn("flex w-full cursor-pointer items-center gap-3 rounded-2xl px-3 py-3 text-left",
-                    i === cursor ? "bg-slate-900 text-white" : "text-slate-800 hover:bg-slate-100")}>
-                  <a.icon className={cn("h-4 w-4 shrink-0", i === cursor ? "text-teal-300" : "text-slate-500")} />
+                  className={cn("pressable flex w-full cursor-pointer items-center gap-3 rounded-2xl px-3 py-3 text-left focus-visible:bg-slate-100 dark:focus-visible:bg-white/10",
+                    i === cursor ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "text-slate-800 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10")}>
+                  <a.icon className={cn("h-4 w-4 shrink-0", i === cursor ? "text-teal-300 dark:text-teal-700" : "text-slate-500 dark:text-slate-400")} />
                   <span className="flex-1 text-[14px] font-semibold">{a.label}</span>
-                  <span className={cn("text-[12px]", i === cursor ? "text-slate-300" : "text-slate-500")}>{a.hint}</span>
+                  <span className={cn("text-[12px]", i === cursor ? "text-slate-300 dark:text-slate-500" : "text-slate-500 dark:text-slate-400")}>{a.hint}</span>
                 </button>
               ))}
             </div>

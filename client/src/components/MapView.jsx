@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, Polyline, Circle, CircleMarker, Marker, useMap, useMapEvents } from "react-leaflet";
+import { MapContainer, TileLayer, Polyline, Circle, CircleMarker, Marker, ZoomControl, useMap, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import { COUNTRY_FALLBACK } from "../data/mockData";
 import { COUNTRY_CENTER } from "../services/geo";
+import { useTheme } from "../lib/theme";
 
 const FALLBACK_CENTER = [COUNTRY_FALLBACK?.lat ?? COUNTRY_CENTER[0], COUNTRY_FALLBACK?.lng ?? COUNTRY_CENTER[1]];
 
@@ -84,24 +85,28 @@ export default function MapView({
   const pinRef = useRef(null);
   const [tileBust, setTileBust] = useState(0);
   const [tileFailed, setTileFailed] = useState(false);
+  const { resolved } = useTheme();
+  const darkTiles = resolved === "dark";
 
   useEffect(() => {
     setTileFailed(false);
   }, [tileBust]);
 
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-200" style={{ minHeight: 320, height }}>
+    <div className="relative h-full w-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-200 dark:border-white/10 dark:bg-slate-900" style={{ minHeight: 320, height }}>
       <MapContainer
         center={resolvedCenter}
         zoom={resolvedZoom}
+        zoomControl={false}
         scrollWheelZoom={interactive}
         dragging={interactive}
         style={{ height: "100%", width: "100%", minHeight: 320 }}
       >
+        <ZoomControl position="bottomright" />
         <TileLayer
-          key={tileBust}
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          key={`${tileBust}-${darkTiles ? "dark" : "light"}`}
+          attribution={darkTiles ? '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>' : '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> contributors'}
+          url={darkTiles ? "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
           eventHandlers={{ tileerror: () => setTileFailed(true) }}
         />
         {radius && (
@@ -163,11 +168,11 @@ export default function MapView({
       </MapContainer>
 
       {tileFailed && (
-        <div className="absolute bottom-3 left-3 right-3 z-[500] flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-white p-3" role="alert">
-          <p className="min-w-[200px] flex-1 text-[13px] font-semibold text-slate-700">Map tiles are not loading. Check your connection.</p>
+        <div className="absolute bottom-3 left-3 right-3 z-[500] flex flex-wrap items-center gap-2 rounded-xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-slate-900" role="alert">
+          <p className="min-w-[200px] flex-1 text-[13px] font-semibold text-slate-700 dark:text-slate-200">Map tiles are not loading. Check your connection.</p>
           <button
             onClick={() => setTileBust((b) => b + 1)}
-            className="min-h-[40px] cursor-pointer rounded-xl bg-slate-900 px-4 text-[13.5px] font-bold text-white hover:bg-slate-800"
+            className="pressable min-h-[40px] cursor-pointer rounded-xl bg-slate-900 px-4 text-[13.5px] font-bold text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
           >
             Retry map
           </button>
@@ -175,9 +180,9 @@ export default function MapView({
       )}
 
       {chip !== null && !tileFailed && (
-        <div className="pointer-events-none absolute left-3 top-3 z-[500] flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-2 pr-3">
-          <span className="h-2.5 w-2.5 rounded-full bg-teal-700" aria-hidden="true" />
-          <span className="text-[12.5px] font-semibold text-slate-800">{chip}</span>
+        <div className="pointer-events-none absolute left-3 top-3 z-[500] flex items-center gap-2 rounded-full border border-slate-200 bg-white py-1.5 pl-2 pr-3 dark:border-white/10 dark:bg-slate-900">
+          <span className="h-2.5 w-2.5 rounded-full bg-teal-700 dark:bg-teal-400" aria-hidden="true" />
+          <span className="text-[12.5px] font-semibold text-slate-800 dark:text-slate-100">{chip}</span>
         </div>
       )}
     </div>

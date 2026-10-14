@@ -11,16 +11,10 @@
 html { scroll-behavior: smooth; }
 
 body {
-  @apply bg-[#eef2f5] text-slate-900 antialiased;
+  @apply bg-[#eef2f5] text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
   font-family: "Instrument Sans", Roboto, system-ui, sans-serif;
   font-size: 15.5px;
   line-height: 1.6;
-}
-
-*:focus-visible {
-  outline: 3px solid #0d9488;
-  outline-offset: 2px;
-  border-radius: 8px;
 }
 
 .leaflet-container {
@@ -29,6 +23,15 @@ body {
   background: #dbe4ec;
 }
 .leaflet-control-zoom a { color: #0f172a !important; }
+.dark .leaflet-bar {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+.dark .leaflet-bar a {
+  background: #0f172a !important;
+  color: #e2e8f0 !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
 .map-pin-dot {
   width: 18px; height: 18px; border-radius: 9999px;
   background: #0d9488; border: 3px solid #fff;
@@ -42,7 +45,11 @@ body {
 .skeleton {
   background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 37%, #e2e8f0 63%);
   background-size: 800px 100%;
-  animation: shimmer 1.4s infinite linear;
+  animation: shimmer 1s infinite linear;
+}
+.dark .skeleton {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 37%, #1e293b 63%);
+  background-size: 800px 100%;
 }
 
 /* Dark hero wash: flat layered color for night-travel legibility (DESIGN.md).
@@ -55,7 +62,19 @@ body {
 .nice-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 8px; }
 .nice-scroll::-webkit-scrollbar-track { background: transparent; }
 
+/* Press feedback: exact properties, custom ease-out curve. Applied to rows,
+   links, and plain buttons that Motion's whileTap does not already cover.
+   Uses the independent `scale` property so it never clobbers transforms. */
+.pressable {
+  transition: scale 160ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+.pressable:active {
+  scale: 0.98;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .skeleton { animation: none; }
+  .pressable { transition: none; }
+  .pressable:active { scale: 1; }
   html { scroll-behavior: auto; }
 }

@@ -1,52 +1,48 @@
 import { useState } from "react";
 import BeuiButton from "../components/beui/BeuiButton";
 import BeuiBadge from "../components/beui/BeuiBadge";
-import { BeuiCard, BeuiInput } from "../components/beui/beui";
+import { BeuiCard } from "../components/beui/beui";
+import { useGeolocation } from "../services/geo";
+import { useTheme } from "../lib/theme";
+
+const APPEARANCE_NOTE = {
+  light: "Light theme.",
+  dark: "Dark theme. The map switches to night tiles.",
+  system: "System theme. Follows your device setting.",
+};
 
 export default function Settings() {
   const [push, setPush] = useState(true);
   const [radius, setRadius] = useState(5);
-  const [confirmDelete, setConfirmDelete] = useState(false);
-  const [deleted, setDeleted] = useState(false);
-  const [savedTick, setSavedTick] = useState(0);
+  const geo = useGeolocation(false);
+  const { mode, setMode } = useTheme();
+  const appearanceNote = APPEARANCE_NOTE[mode] || APPEARANCE_NOTE.system;
 
-  const save = (e) => {
-    e.preventDefault();
-    setSavedTick((t) => t + 1);
-  };
+  const locationLine =
+    geo.status === "ok" && geo.pos
+      ? `Locked: ${geo.pos.lat.toFixed(4)}, ${geo.pos.lng.toFixed(4)}`
+      : geo.status === "locating"
+        ? "Locating…"
+        : geo.status === "denied" || geo.status === "error"
+          ? "Unavailable. Maps still work with typed addresses."
+          : "Not requested yet.";
 
   return (
     <div className="mx-auto max-w-3xl space-y-4">
       <div>
         <h1 className="mt-1 text-[26px] font-bold tracking-tight sm:text-[30px]">Settings</h1>
-        <p className="mt-1 text-[14px] text-slate-600">Profile, push alerts, and account deletion.</p>
+        <p className="mt-1 text-[14px] text-slate-600 dark:text-slate-400">App preferences. Your identity lives under Profile.</p>
       </div>
-
-      <BeuiCard className="p-6">
-        <h2 className="text-[16px] font-bold">Profile</h2>
-        <form onSubmit={save}>
-          <div className="mt-3 grid gap-4 sm:grid-cols-2">
-            <BeuiInput label="Display name" placeholder="Your name" />
-            <BeuiInput label="Email" placeholder="you@example.com" />
-          </div>
-          <div className="mt-4 flex items-center gap-3">
-            <BeuiButton type="submit">Save changes</BeuiButton>
-            {savedTick > 0 && (
-              <BeuiBadge key={savedTick} tone="safe">Saved</BeuiBadge>
-            )}
-          </div>
-        </form>
-      </BeuiCard>
 
       <BeuiCard className="p-6">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-[16px] font-bold">Notifications</h2>
           <BeuiBadge tone={push ? "safe" : "neutral"}>{push ? "Push on" : "Push off"}</BeuiBadge>
         </div>
-        <div className="mt-3 flex items-center justify-between gap-4 rounded-2xl bg-slate-50 p-4">
-          <div><p className="text-[14.5px] font-bold">Push alerts</p><p className="text-[13px] text-slate-500">A notice before a newly verified waterlogged road.</p></div>
-          <button role="switch" aria-checked={push} onClick={() => setPush(!push)} className={`relative h-8 w-14 shrink-0 cursor-pointer rounded-full transition-colors ${push ? "bg-teal-700" : "bg-slate-300"}`}>
-            <span className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-all ${push ? "left-7" : "left-1"}`} />
+        <div className="mt-3 flex items-center justify-between gap-4 rounded-2xl bg-slate-50 p-4 dark:bg-white/5">
+          <div><p className="text-[14.5px] font-bold">Push alerts</p><p className="text-[13px] text-slate-500 dark:text-slate-400">A notice before a newly verified waterlogged road.</p></div>
+          <button role="switch" aria-checked={push} onClick={() => setPush(!push)} className={`relative h-8 w-14 shrink-0 cursor-pointer rounded-full transition-colors ${push ? "bg-teal-700 dark:bg-teal-500" : "bg-slate-300 dark:bg-slate-600"}`}>
+            <span className={`absolute top-1 h-6 w-6 rounded-full bg-white shadow transition-[left] duration-200 ease-out ${push ? "left-7" : "left-1"}`} />
           </button>
         </div>
         <div className="mt-3">
@@ -55,24 +51,51 @@ export default function Settings() {
         </div>
       </BeuiCard>
 
-      <BeuiCard className="!border-red-200 p-6">
-        <h2 className="text-[16px] font-bold text-red-700">Danger zone: delete account</h2>
-        <p className="mt-1 text-[14px] text-slate-600">Deletes your profile. Your reports stay on the map without your name.</p>
-        {deleted ? (
-          <div className="mt-3 rounded-2xl bg-slate-50 p-4" role="status">
-            <p className="text-[14px] font-bold text-slate-800">Deletion is disabled in this prototype</p>
-            <p className="mt-1 text-[13.5px] text-slate-600">Nothing was deleted. Account deletion ships with the API connection.</p>
-            <button onClick={() => { setDeleted(false); setConfirmDelete(false); }} className="mt-2 cursor-pointer text-[13px] font-bold text-teal-800 underline">Back to settings</button>
+      <BeuiCard className="p-6">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="text-[16px] font-bold">Location</h2>
+            <p className="mt-1 text-[14px] text-slate-600 dark:text-slate-400" role="status">{locationLine}</p>
           </div>
-        ) : !confirmDelete ? (
-          <div className="mt-3"><BeuiButton variant="danger" onClick={() => setConfirmDelete(true)}>Delete my account</BeuiButton></div>
-        ) : (
-          <div className="mt-3 rounded-2xl bg-red-50 p-4">
-            <p className="text-[14px] font-bold text-red-800">Type DELETE to confirm</p>
-            <div className="mt-2 flex gap-2"><BeuiInput placeholder="DELETE" /><BeuiButton variant="danger" onClick={() => setDeleted(true)}>Confirm</BeuiButton></div>
-            <button onClick={() => setConfirmDelete(false)} className="mt-2 cursor-pointer text-[13px] font-bold underline">Cancel</button>
-          </div>
-        )}
+          <BeuiButton variant="ghost" onClick={geo.locate}>
+            {geo.status === "locating" ? "Locating…" : "Enable location"}
+          </BeuiButton>
+        </div>
+      </BeuiCard>
+
+      <BeuiCard className="p-6">
+        <h2 className="text-[16px] font-bold">Appearance</h2>
+        <p className="mt-1 text-[14px] text-slate-600 dark:text-slate-400" role="status">{appearanceNote}</p>
+        <div className="mt-3 grid grid-cols-3 gap-2" role="radiogroup" aria-label="Theme">
+          {[
+            { id: "light", label: "Light" },
+            { id: "dark", label: "Dark" },
+            { id: "system", label: "System" },
+          ].map((o) => (
+            <button
+              key={o.id}
+              role="radio"
+              aria-checked={mode === o.id}
+              onClick={() => setMode(o.id)}
+              className={`min-h-[48px] cursor-pointer rounded-xl border-2 px-3 text-[14px] font-bold transition-colors ${
+                mode === o.id
+                  ? "border-slate-900 bg-slate-900 text-white dark:border-white dark:bg-white dark:text-slate-900"
+                  : "border-slate-200 bg-white text-slate-600 hover:border-slate-400 dark:border-white/10 dark:bg-transparent dark:text-slate-300"
+              }`}
+            >
+              {o.label}
+            </button>
+          ))}
+        </div>
+        <p className="mt-2 text-[12.5px] text-slate-500 dark:text-slate-400">System follows your device. The map switches to night tiles in dark.</p>
+      </BeuiCard>
+
+      <BeuiCard className="p-6">
+        <h2 className="text-[16px] font-bold">About</h2>
+        <p className="mt-1 text-[14px] leading-relaxed text-slate-600 dark:text-slate-400">
+          SafePath prototype for Bangladesh. Report and map rows are sample data
+          until the API connects. Routes use live open map data.
+        </p>
       </BeuiCard>
     </div>
   );

@@ -145,7 +145,7 @@ export default function Navigate() {
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="mt-1 text-[26px] font-bold tracking-tight sm:text-[30px]">Find a safe route</h1>
-          <p className="mt-1 text-[14px] text-slate-600">Address search with road geometry drawn per search. Safety colors arrive with the API connection.</p>
+          <p className="mt-1 text-[14px] text-slate-600 dark:text-slate-400">Address search with road geometry drawn per search. Safety colors arrive with the API connection.</p>
         </div>
         <BeuiTabs value={tab} onValueChange={setTab}>
           <BeuiTabsList>
@@ -165,7 +165,7 @@ export default function Navigate() {
               placeholder="Your address or current location"
             />
             <div className="mt-1.5">
-              <button type="button" onClick={useMyLocation} className="inline-flex min-h-[36px] cursor-pointer items-center gap-1.5 rounded-xl px-2 text-[13px] font-bold text-teal-800 hover:bg-teal-50">
+              <button type="button" onClick={useMyLocation} className="inline-flex min-h-[36px] cursor-pointer items-center gap-1.5 rounded-xl px-2 text-[13px] font-bold text-teal-800 hover:bg-teal-50 dark:text-teal-300 dark:hover:bg-white/5">
                 <LocateFixed className="h-4 w-4" />
                 {geo.status === "locating" ? "Locating…" : "Use my location"}
               </button>
@@ -188,7 +188,7 @@ export default function Navigate() {
           <div className="flex items-end"><BeuiButton type="submit" loading={checking} className="w-full md:w-auto">{checking ? "Finding route…" : "Find route"}</BeuiButton></div>
         </form>
         {geo.error && !fromCoord && (
-          <p className="mt-2 text-[13px] text-slate-500">{geo.error}</p>
+          <p className="mt-2 text-[13px] text-slate-500 dark:text-slate-400">{geo.error}</p>
         )}
         {error && (
           <div className="mt-4 flex items-start gap-2.5 rounded-2xl border border-red-200 bg-red-50 p-4" role="alert">
@@ -218,28 +218,28 @@ export default function Navigate() {
                 chip={to ? `Route to ${to.slice(0, 42)}` : "Your route"}
               />
             </div>
-            <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 p-4">
+            <div className="flex flex-wrap items-center gap-2 border-t border-slate-100 p-4 dark:border-white/10">
               <BeuiBadge tone="caution">Safety check pending</BeuiBadge>
-              <span className="text-[13px] text-slate-500">Road geometry is fetched per search. Waterlogging scoring lights up once <span className="font-mono">POST /v1/map/route</span> is connected.</span>
+              <span className="text-[13px] text-slate-500 dark:text-slate-400">Road geometry is fetched per search. Waterlogging scoring lights up once <span className="font-mono">POST /v1/map/route</span> is connected.</span>
             </div>
           </BeuiCard>
 
           <div className="space-y-3">
-            <p className="text-[13px] font-semibold text-slate-500">{ordered.length} route{ordered.length > 1 ? "s" : ""} found on the road network</p>
+            <p className="text-[13px] font-semibold text-slate-500 dark:text-slate-400">{ordered.length} route{ordered.length > 1 ? "s" : ""} found on the road network</p>
             {ordered.map((r) => {
               const isSel = r.id === active.id;
               return (
                 <motion.button key={r.id} onClick={() => setSelected(r.id)} aria-pressed={isSel}
                   whileTap={reduce ? undefined : { scale: 0.985 }}
-                  className={`w-full cursor-pointer rounded-2xl border-2 p-4 text-left transition-colors ${isSel ? "border-slate-900 bg-slate-50" : "border-slate-200 bg-white hover:border-slate-400"}`}>
+                  className={`w-full cursor-pointer rounded-2xl border-2 p-4 text-left transition-colors ${isSel ? "border-slate-900 bg-slate-50 dark:border-white dark:bg-white/10" : "border-slate-200 bg-white hover:border-slate-400 dark:border-white/10 dark:bg-transparent dark:hover:border-white/30"}`}>
                   <div className="flex items-center justify-between gap-2">
                     <BeuiBadge tone={isSel ? "info" : "neutral"}>{isSel ? "Selected" : "Alternative"}</BeuiBadge>
-                    <span className="text-[13px] font-bold text-slate-700">{r.timeMin} min · {r.distanceKm.toFixed(1)} km</span>
+                    <span className="text-[13px] font-bold text-slate-700 dark:text-slate-200">{r.timeMin} min · {r.distanceKm.toFixed(1)} km</span>
                   </div>
                   <p className="mt-2 text-[16px] font-bold tracking-tight">
                     {r.id === ordered[0].id ? "Recommended route" : "Alternate route"}
                   </p>
-                  <p className="text-[13.5px] text-slate-600">Driving geometry for the addresses above. Safety check pending API connection. Tap to preview.</p>
+                  <p className="text-[13.5px] text-slate-600 dark:text-slate-400">Driving geometry for the addresses above. Safety check pending API connection. Tap to preview.</p>
                 </motion.button>
               );
             })}
@@ -254,7 +254,7 @@ export default function Navigate() {
       {!active && !checking && !error && (
         <BeuiCard className="p-6 text-center">
           <p className="text-[15px] font-bold">Type a destination to see its route on the map</p>
-          <p className="mx-auto mt-1 max-w-[52ch] text-[14px] text-slate-500">Addresses are geocoded across Bangladesh. Your origin can be your current GPS position.</p>
+          <p className="mx-auto mt-1 max-w-[52ch] text-[14px] text-slate-500 dark:text-slate-400">Addresses are geocoded across Bangladesh. Your origin can be your current GPS position.</p>
         </BeuiCard>
       )}
     </div>
@@ -263,13 +263,13 @@ export default function Navigate() {
 
 function SuggestionList({ items, loading, onPick }) {
   return (
-    <div className="absolute inset-x-0 top-full z-[700] mt-1 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-pop" role="listbox" aria-label="Address suggestions">
-      {loading && items.length === 0 && <p className="px-4 py-3 text-[13.5px] text-slate-500">Searching addresses…</p>}
+    <div className="absolute inset-x-0 top-full z-[700] mt-1 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-pop dark:border-white/10 dark:bg-slate-900" role="listbox" aria-label="Address suggestions">
+      {loading && items.length === 0 && <p className="px-4 py-3 text-[13.5px] text-slate-500 dark:text-slate-400">Searching addresses…</p>}
       {items.map((s, i) => (
         <button key={`${s.lat}-${s.lng}-${i}`} type="button" role="option" aria-selected="false"
           onClick={() => onPick(s)}
-          className="block w-full cursor-pointer px-4 py-2.5 text-left text-[13.5px] hover:bg-slate-50">
-          <span className="font-semibold text-slate-800">{s.label}</span>
+          className="block w-full cursor-pointer px-4 py-2.5 text-left text-[13.5px] hover:bg-slate-50 dark:hover:bg-white/5">
+          <span className="font-semibold text-slate-800 dark:text-slate-100">{s.label}</span>
         </button>
       ))}
     </div>
