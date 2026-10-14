@@ -15,6 +15,7 @@ const ACTIONS = [
 ];
 
 export default function Dashboard() {
+  const [loading, setLoading] = useState(true);
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
   const { items, push, dismiss } = useToasts();
@@ -60,7 +61,7 @@ export default function Dashboard() {
             title={located ? "Location locked" : "Showing Bangladesh"}
             sub="Nationwide coverage across 8 divisions"
           />
-          <h1 className="mt-3 text-[26px] font-bold tracking-tight sm:text-[30px]">Good evening</h1>
+          <h1 className="mt-3 text-[26px] font-bold tracking-tight sm:text-[30px]">{greeting}</h1>
           <p className="text-[14px] text-slate-600">Your position plus community reports across the country, in one place.</p>
         </div>
         <div className="flex flex-wrap gap-2">
