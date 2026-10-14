@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#eef2f5] text-slate-900 antialiased;
+  font-family: "Instrument Sans", Roboto, system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+*:focus-visible {
+  outline: 3px solid #0d9488;
+  outline-offset: 2px;
+  border-radius: 8px;
+}

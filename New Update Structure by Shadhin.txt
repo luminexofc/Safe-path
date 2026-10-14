@@ -1,0 +1,62 @@
+safe-path-monorepo/
+│
+├── client/                             # Frontend (React.js / Next.js)
+│   ├── public/
+│   │   ├── manifest.json               # PWA support for mobile installation
+│   │   └── service-worker.js           # Web Push API / Firebase notification listener
+│   ├── src/
+│   │   ├── assets/                     # Static media, custom markers, and icons
+│   │   ├── components/                 # Reusable UI (Buttons, Modals, Map layers, Skeleton Loaders)
+│   │   ├── context/                    # React Context (Auth state, Global Map state)
+│   │   ├── hooks/                      # Custom hooks (e.g., useGeolocation, usePushNotifications)
+│   │   ├── pages/                      # Route components (Dashboard, Login, Settings)
+│   │   ├── services/                   # Axios/Fetch API clients for backend communication
+│   │   ├── types/                      # TypeScript interfaces (optional but highly recommended for data integrity)
+│   │   └── utils/                      # Helper functions (date formatting, spatial coordinate conversions)
+│   ├── tests/                          # Frontend unit and component tests (Jest/React Testing Library)
+│   ├── package.json
+│   └── tailwind.config.js
+│
+├── server/                             # Backend (Node.js / Express)
+│   ├── scripts/                        
+│   │   └── db-backup.sh                # Shell script for Automated Daily Backups to cloud storage
+│   ├── src/
+│   │   ├── config/                     
+│   │   │   ├── db.js                   # PostGIS database connection pool
+│   │   │   ├── corsConfig.js           # Strict CORS rules for domain whitelisting[cite: 8]
+│   │   │   └── logger.js               # Logging configuration (e.g., Winston/Morgan) for system monitoring
+│   │   ├── controllers/                # Request handlers mapping routes to services
+│   │   │   ├── authController.js       # Authentication logic, issues JWTs in HttpOnly Cookies[cite: 8]
+│   │   │   ├── mapController.js        # Handles PostGIS Spatial Indexing queries (5km radius searches)
+│   │   │   └── reportController.js     # Logic for receiving and verifying waterlogging submissions
+│   │   ├── jobs/                       
+│   │   │   └── cronJobs.js             # Node-cron setup triggering the db-backup.sh script automatically[cite: 8]
+│   │   ├── middleware/                 
+│   │   │   ├── authMiddleware.js       # Validates HttpOnly JWTs on protected routes
+│   │   │   ├── rateLimiter.js          # Prevents spam on Auth and Report endpoints
+│   │   │   ├── sanitize.js             # Input Sanitization to prevent XSS and SQL injection[cite: 8]
+│   │   │   └── errorHandler.js         # Global error catcher for consistent client responses
+│   │   ├── models/                     # Database schemas and query builders
+│   │   │   ├── User.js
+│   │   │   ├── Report.js
+│   │   │   └── RouteCache.js           # Schema for Redis cached alternative routes
+│   │   ├── routes/                     
+│   │   │   └── v1/                     # API Versioning for future scalability
+│   │   │       ├── auth.routes.js
+│   │   │       ├── map.routes.js
+│   │   │       └── report.routes.js
+│   │   ├── services/                   # Core business logic and external APIs
+│   │   │   ├── emailService.js         # Transactional Emails (Resend/SendGrid/Nodemailer)[cite: 7]
+│   │   │   └── notificationService.js  # Firebase Cloud Messaging wrapper for Real-Time Push Alerts[cite: 7]
+│   │   ├── validations/                
+│   │   │   └── schemas.js              # Zod or Joi validation schemas for Data Serialization[cite: 7]
+│   │   └── app.js                      # Express app setup and middleware wiring
+│   ├── tests/                          # Backend tests (Jest/Supertest)
+│   │   ├── integration/                # API endpoint testing
+│   │   └── unit/                       # Algorithm and utility testing
+│   ├── .env.example                    # Template for required environment variables (DB credentials, API keys)
+│   └── server.js                       # Server entry point and port listener
+│
+├── docker-compose.yml                  # Local development environment containerizing PostGIS and Redis
+├── .gitignore
+└── README.md                           # Documentation, setup instructions, and architecture overview
