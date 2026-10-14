@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
 import AppShell from "./components/AppShell";
 import Landing from "./pages/Landing";
 import { Login, Signup, Verify, AuthError } from "./pages/Auth";
@@ -13,7 +13,7 @@ function NotFound() {
     <div className="mx-auto max-w-xl px-4 py-16 text-center">
       <h1 className="text-[32px] font-bold">Page not found</h1>
       <p className="mt-2 text-slate-600">That road is not on the map. Head back to safety:</p>
-      <a href="/dashboard" className="mt-5 inline-flex min-h-[44px] items-center rounded-xl bg-brand-700 px-5 font-bold text-white">Back to dashboard</a>
+      <Link to="/dashboard" className="mt-5 inline-flex min-h-[44px] items-center rounded-xl bg-brand-700 px-5 font-bold text-white">Back to dashboard</Link>
     </div>
   );
 }

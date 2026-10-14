@@ -15,7 +15,8 @@ const ACTIONS = [
 ];
 
 export default function Dashboard() {
-  const [loading, setLoading] = useState(true);
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
   const { items, push, dismiss } = useToasts();
   const geo = useGeolocation(true);
   const [fitSignal, setFitSignal] = useState(0);

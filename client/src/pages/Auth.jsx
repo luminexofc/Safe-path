@@ -105,7 +105,7 @@ export function AuthError() {
       <div className="rounded-2xl border border-red-300 bg-red-50 p-5">
         <BeuiBadge tone="danger">Rate limit exceeded</BeuiBadge>
         <p className="mt-2 text-[14px] font-semibold text-red-800" role="status">
-          {left > 0 ? `Retry available in ${left} seconds.` : "Press resend to try again."}
+          {left > 0 ? `Retry available in ${left} seconds.` : "Press Retry now below to try again."}
         </p>
       </div>
       <div className="mt-4">
